@@ -1,0 +1,89 @@
+
+📂 redux/ (Main Folder)
+
+redux/
+ ├── actions/
+ │   ├── createUserAction.js
+ │   ├── showUserAction.js
+ │   ├── deleteUserAction.js
+ │   ├── updateUserAction.js
+ ├── reducers/
+ │   ├── userDetailSlice.js
+ ├── store.js
+
+
+createAsyncThunk is a powerful method in Redux Toolkit designed to handle asynchronous logic like API calls in a structured way. 
+It simplifies actions that involve async data fetching, error handling, and state management.
+
+Example:- 
+```
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+export const actionName = createAsyncThunk(
+  'sliceName/actionName', 
+  async (payload, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const response = await fetch(`https://api.example.com/data`);
+      const data = await response.json();
+      return data; // Successfully resolved data
+    } catch (error) {
+      return rejectWithValue(error.message); // Handles errors gracefully
+    }
+  }
+);
+```
+
+Key Takeaways
+✅ createAsyncThunk simplifies async actions like fetching data, updating records, etc.
+✅ It automatically creates .pending, .fulfilled, and .rejected actions.
+✅ Using rejectWithValue ensures error messages are passed directly to .rejected.
+✅ Cleanly integrates with createSlice for better state management.
+
+
+Q. Difference Between reducers and extraReducers in Redux Toolkit
+
+Redux Toolkit provides two ways to define reducers inside a createSlice:
+
+1. reducers: Handles synchronous actions created using createSlice().actions.
+
+* Used when defining regular action creators inside the createSlice().
+* These actions are dispatched directly and update the state synchronously.
+* The actions created here can be accessed using slice.actions.
+
+2. extraReducers: Handles asynchronous actions created using createAsyncThunk.
+
+* Used to handle lifecycle actions (.pending, .fulfilled, .rejected) of createAsyncThunk.
+* It allows updating the state when async operations like API calls complete.
+* Cannot be exported like reducers, since it doesn’t create named actions.
+
+```
+export const userDetail = createSlice({
+  name: "userDetail",
+  initialState: {
+    users: [],
+    loading: false,
+    error: null,
+    searchData: [],
+  },
+
+  reducers: {
+      searchUser: (state, action) => {
+        console.log(action.payload);
+        state.searchData = action.payload;
+      },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      // Create User
+      .addCase(createUser.pending, (state) => {
+        state.loading = true;
+      })
+  },
+});
+
+export default userDetail.reducer;
+export const { searchUser } = userDetail.actions;
+
+```
+
