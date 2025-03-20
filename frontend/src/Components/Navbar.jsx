@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import { searchUser } from "../features/userDetailSlice";
+import { searchUser } from "../Redux/Userfeature/Reducers/userDetailSlice";
 
 const Navbar = () => {
 //   const allusers = useSelector((state) => state.app.users);
