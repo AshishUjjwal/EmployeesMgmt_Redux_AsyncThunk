@@ -5,7 +5,7 @@ export const showUser = createAsyncThunk(
   "showUser",
   async (args, { rejectWithValue }) => {
     const response = await fetch(
-      "https://641dd63d945125fff3d75742.mockapi.io/crud"
+      "https://67dba8da1fd9e43fe47550bf.mockapi.io/user"
     );
 
     try {

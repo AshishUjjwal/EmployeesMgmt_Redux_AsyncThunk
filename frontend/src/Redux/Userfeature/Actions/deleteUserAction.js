@@ -5,7 +5,7 @@ export const deleteUser = createAsyncThunk(
   "deleteUser",
   async (id, { rejectWithValue }) => {
     const response = await fetch(
-      `https://641dd63d945125fff3d75742.mockapi.io/crud/${id}`,
+      `https://67dba8da1fd9e43fe47550bf.mockapi.io/user/${id}`,
       { method: "DELETE" }
     );
 

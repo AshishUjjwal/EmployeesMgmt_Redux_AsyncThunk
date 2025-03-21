@@ -6,7 +6,7 @@ export const updateUser = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log("updated data", data);
     const response = await fetch(
-      `https://641dd63d945125fff3d75742.mockapi.io/crud/${data.id}`,
+      `https://67dba8da1fd9e43fe47550bf.mockapi.io/user/${data.id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

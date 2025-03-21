@@ -13,7 +13,7 @@ export const userDetail = createSlice({
         searchData: [],
     },
 
-    reducer: {
+    reducers: {
         searchUser: (state, action)=>{
             console.log(action.payload);
             state.searchData = action.payload;
@@ -23,23 +23,30 @@ export const userDetail = createSlice({
     extraReducers : (builder)=>{
       builder
         // Create User
-        .addCase(createUser.pending, (state)=> state.loading = true)
+        .addCase(createUser.pending, (state)=>{
+            state.loading = true;
+        })
         .addCase(createUser.fulfilled, (state, action)=> {
             state.loading = false;
+            console.log(action.payload);
             state.users.push(action.payload);
         })
         .addCase(createUser.rejected, (state,action)=> {
             state.loading = false;
-            state.error = action.payload.message;
+            console.log(action.payload);
+            state.error = action.payload || "User creation failed";
+            console.log(state.error);
         })
 
         // Show Users
-        .addCase(showUser.pending, (state)=> state.loading = true)
-        .addCase(showUser.rejected, (state, action)=>{
+        .addCase(showUser.pending, (state)=>{
+            state.loading = true;
+        })
+        .addCase(showUser.fulfilled, (state, action)=>{
             state.loading = false;
             state.users = action.payload;
         })
-        .addCase(showUser,rejected, (state, action)=>{
+        .addCase(showUser.rejected, (state, action)=>{
             state.loading = false;
             state.error = action.payload;
         })
@@ -57,7 +64,7 @@ export const userDetail = createSlice({
         })
         .addCase(deleteUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload;
+            state.error = action.payload?.message || "User update failed";
         })
     
           // Update User

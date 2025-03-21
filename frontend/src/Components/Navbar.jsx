@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { searchUser } from "../Redux/Userfeature/Reducers/userDetailSlice";
 
 const Navbar = () => {
-//   const allusers = useSelector((state) => state.app.users);
-//   const dispatch = useDispatch();
+  const allusers = useSelector((state) => state.app.users);
+  const dispatch = useDispatch();
 
-//   const [searchData, setSearchData] = useState("");
+  const [searchData, setSearchData] = useState("");
 
-//   useEffect(() => {
-//     dispatch(searchUser(searchData));
-//   }, [searchData]);
+  useEffect(() => {
+    dispatch(searchUser(searchData));
+  }, [searchData]);
 
   return (
     <div>
@@ -28,7 +28,7 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link to="/read" className="nav-link">
-                  {/* All Post ({allusers.length}) */}
+                  All Post ({allusers.length})
                 </Link>
               </li>
             </ul>
@@ -37,8 +37,8 @@ const Navbar = () => {
               type="search"
               placeholder="Search"
               aria-label="Search"
-            //   value={searchData}
-            //   onChange={(e) => setSearchData(e.target.value)}
+              value={searchData}
+              onChange={(e) => setSearchData(e.target.value)}
             />
           </div>
         </div>
